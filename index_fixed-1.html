@@ -1,0 +1,1685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Coffea | Coffee • Conversations • Good Vibes</title>
+
+<style>
+/* ================= RATINGS ================= */
+
+.ratings-section{
+    padding:90px 7%;
+    background:linear-gradient(135deg,#1b0d07,#2a160d);
+    text-align:center;
+}
+
+.rating-summary{
+    max-width:900px;
+    margin:0 auto 45px;
+    display:grid;
+    grid-template-columns:1fr 2fr;
+    gap:25px;
+    align-items:center;
+}
+
+.big-rating{
+    background:#26140d;
+    border:1px solid rgba(216,164,109,.3);
+    border-radius:20px;
+    padding:35px;
+}
+
+.big-rating .number{
+    font-size:70px;
+    font-weight:bold;
+    color:var(--gold);
+}
+
+.stars{
+    color:#f5b942;
+    font-size:25px;
+    margin:10px 0;
+}
+
+.big-rating p{
+    color:#a99687;
+}
+
+.review-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+    max-width:1100px;
+    margin:auto;
+}
+
+.review-card{
+    background:#26140d;
+    border:1px solid rgba(216,164,109,.18);
+    padding:25px;
+    border-radius:18px;
+    text-align:left;
+    transition:.4s;
+}
+
+.review-card:hover{
+    transform:translateY(-8px);
+    border-color:var(--gold);
+}
+
+.review-stars{
+    color:#f5b942;
+    font-size:18px;
+    margin-bottom:15px;
+}
+
+.review-card p{
+    color:#b8a394;
+    line-height:1.7;
+    font-size:14px;
+    margin-bottom:18px;
+}
+
+.reviewer{
+    color:var(--gold);
+    font-weight:bold;
+}
+
+.review-note{
+    margin-top:30px;
+    color:#8f7d70;
+    font-size:13px;
+}
+
+@media(max-width:850px){
+
+    .rating-summary{
+        grid-template-columns:1fr;
+    }
+
+    .review-grid{
+        grid-template-columns:1fr;
+    }
+
+}
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    scroll-behavior:smooth;
+}
+
+:root{
+    --bg:#120904;
+    --bg2:#1c0f08;
+    --card:#26150d;
+    --gold:#d8a46d;
+    --light:#f5e7d5;
+    --text:#c9b8a8;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:var(--bg);
+    color:white;
+    overflow-x:hidden;
+}
+
+/* ================= BACKGROUND ================= */
+
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    background:
+    radial-gradient(circle at 20% 20%,rgba(216,164,109,.08),transparent 25%),
+    radial-gradient(circle at 80% 70%,rgba(130,65,20,.10),transparent 25%);
+    z-index:-1;
+}
+
+/* ================= NAVBAR ================= */
+
+nav{
+    position:fixed;
+    top:0;
+    width:100%;
+    z-index:1000;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:18px 7%;
+    background:rgba(12,6,3,.90);
+    backdrop-filter:blur(15px);
+    border-bottom:1px solid rgba(216,164,109,.15);
+}
+
+.logo{
+    font-size:28px;
+    letter-spacing:5px;
+    font-weight:bold;
+    color:var(--gold);
+}
+
+.logo small{
+    display:block;
+    font-size:8px;
+    letter-spacing:2px;
+    margin-top:3px;
+}
+
+.nav-links{
+    list-style:none;
+    display:flex;
+    gap:25px;
+}
+
+.nav-links a{
+    color:white;
+    text-decoration:none;
+    font-size:14px;
+    transition:.3s;
+}
+
+.nav-links a:hover{
+    color:var(--gold);
+}
+
+.order-btn{
+    background:var(--gold);
+    color:#1a0d06;
+    text-decoration:none;
+    padding:12px 20px;
+    border-radius:8px;
+    font-weight:bold;
+}
+
+.mobile-menu{
+    display:none;
+    font-size:28px;
+}
+
+/* ================= HERO ================= */
+
+.hero{
+    min-height:100vh;
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    overflow:hidden;
+    padding:130px 20px 70px;
+    background:
+    linear-gradient(rgba(10,4,2,.70),rgba(18,9,4,.85)),
+    url("https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1800&q=90");
+    background-size:cover;
+    background-position:center;
+}
+
+.hero-content{
+    position:relative;
+    z-index:5;
+    max-width:850px;
+    animation:heroShow 1.3s ease;
+}
+
+.hero-tag{
+    color:var(--gold);
+    letter-spacing:6px;
+    font-size:14px;
+    margin-bottom:15px;
+}
+
+.hero h1{
+    font-size:clamp(60px,11vw,135px);
+    letter-spacing:10px;
+    line-height:.9;
+    margin-bottom:25px;
+}
+
+.hero h1 span{
+    color:var(--gold);
+}
+
+.hero p{
+    font-size:19px;
+    color:#eee;
+    letter-spacing:1px;
+    line-height:1.7;
+    margin-bottom:28px;
+}
+
+.btn{
+    display:inline-block;
+    padding:15px 28px;
+    border-radius:8px;
+    background:var(--gold);
+    color:#1b0c05;
+    font-weight:bold;
+    text-decoration:none;
+    margin:7px;
+    transition:.35s;
+}
+
+.btn:hover{
+    transform:translateY(-5px);
+    box-shadow:0 15px 35px rgba(216,164,109,.35);
+}
+
+.btn-outline{
+    background:transparent;
+    border:1px solid var(--gold);
+    color:white;
+}
+
+/* ================= FALLING CUPS ================= */
+
+.falling{
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    overflow:hidden;
+}
+
+.cup{
+    position:absolute;
+    font-size:55px;
+    opacity:.8;
+    filter:drop-shadow(0 10px 10px rgba(0,0,0,.5));
+    animation:fall linear infinite;
+}
+
+.cup:nth-child(1){
+    left:5%;
+    animation-duration:12s;
+    animation-delay:-4s;
+}
+
+.cup:nth-child(2){
+    left:18%;
+    font-size:38px;
+    animation-duration:16s;
+    animation-delay:-8s;
+}
+
+.cup:nth-child(3){
+    left:32%;
+    animation-duration:13s;
+    animation-delay:-2s;
+}
+
+.cup:nth-child(4){
+    left:52%;
+    font-size:42px;
+    animation-duration:17s;
+    animation-delay:-10s;
+}
+
+.cup:nth-child(5){
+    left:72%;
+    animation-duration:14s;
+    animation-delay:-6s;
+}
+
+.cup:nth-child(6){
+    left:88%;
+    font-size:40px;
+    animation-duration:18s;
+    animation-delay:-12s;
+}
+
+@keyframes fall{
+    0%{
+        transform:translateY(-150px) rotate(0deg);
+        opacity:0;
+    }
+
+    10%{
+        opacity:.85;
+    }
+
+    90%{
+        opacity:.85;
+    }
+
+    100%{
+        transform:translateY(110vh) rotate(720deg);
+        opacity:0;
+    }
+}
+
+/* Floating beans */
+
+.bean{
+    position:absolute;
+    color:#b56b35;
+    font-size:22px;
+    animation:beanFloat 8s ease-in-out infinite;
+}
+
+.bean:nth-child(7){left:10%;top:30%}
+.bean:nth-child(8){left:80%;top:20%;animation-delay:2s}
+.bean:nth-child(9){left:90%;top:65%;animation-delay:4s}
+.bean:nth-child(10){left:25%;top:70%;animation-delay:1s}
+
+@keyframes beanFloat{
+    0%,100%{
+        transform:translateY(0) rotate(0deg);
+    }
+
+    50%{
+        transform:translateY(-30px) rotate(180deg);
+    }
+}
+
+/* ================= INFO ================= */
+
+.info-strip{
+    background:#1c0e08;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    border-top:1px solid rgba(216,164,109,.15);
+    border-bottom:1px solid rgba(216,164,109,.15);
+}
+
+.info-box{
+    padding:25px 15px;
+    text-align:center;
+    border-right:1px solid rgba(216,164,109,.12);
+}
+
+.info-box:last-child{
+    border:none;
+}
+
+.info-box h3{
+    color:var(--gold);
+    margin-bottom:7px;
+}
+
+.info-box p{
+    color:#aaa;
+    font-size:13px;
+}
+
+/* ================= SECTIONS ================= */
+
+section{
+    padding:90px 7%;
+}
+
+.section-title{
+    text-align:center;
+    margin-bottom:50px;
+}
+
+.section-title h2{
+    font-size:42px;
+    letter-spacing:2px;
+}
+
+.section-title h2 span{
+    color:var(--gold);
+}
+
+.section-title p{
+    color:#a99687;
+    margin-top:12px;
+}
+
+/* ================= ABOUT ================= */
+
+.about-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:50px;
+    align-items:center;
+}
+
+.about-image{
+    overflow:hidden;
+    border-radius:20px;
+}
+
+.about-image img{
+    width:100%;
+    height:460px;
+    object-fit:cover;
+    transition:.6s;
+}
+
+.about-image:hover img{
+    transform:scale(1.08);
+}
+
+.about-text h2{
+    font-size:45px;
+    margin-bottom:20px;
+}
+
+.about-text h2 span{
+    color:var(--gold);
+}
+
+.about-text p{
+    color:var(--text);
+    line-height:1.8;
+    margin-bottom:18px;
+}
+
+/* ================= MENU ================= */
+
+.menu-section{
+    background:linear-gradient(180deg,#160a05,#211007,#160a05);
+}
+
+.menu-tabs{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-bottom:35px;
+}
+
+.menu-tabs button{
+    background:transparent;
+    color:white;
+    border:1px solid rgba(216,164,109,.45);
+    padding:12px 22px;
+    border-radius:25px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.menu-tabs button:hover,
+.menu-tabs button.active{
+    background:var(--gold);
+    color:#160a05;
+}
+
+.menu-category{
+    margin:45px 0;
+}
+
+.category-heading{
+    color:var(--gold);
+    letter-spacing:2px;
+    font-size:23px;
+    margin-bottom:22px;
+    border-left:4px solid var(--gold);
+    padding-left:13px;
+}
+
+.menu-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+    gap:18px;
+}
+
+.menu-card{
+    background:linear-gradient(145deg,#2a160d,#1d0e08);
+    border:1px solid rgba(216,164,109,.18);
+    border-radius:15px;
+    overflow:hidden;
+    text-align:center;
+    transition:.4s;
+}
+
+.menu-card:hover{
+    transform:translateY(-10px) scale(1.02);
+    border-color:var(--gold);
+    box-shadow:0 18px 35px rgba(0,0,0,.35);
+}
+
+.menu-card img{
+    width:100%;
+    height:150px;
+    object-fit:cover;
+}
+
+.menu-card-content{
+    padding:16px 12px 18px;
+}
+
+.menu-card h3{
+    font-size:16px;
+    margin-bottom:8px;
+}
+
+.menu-card p{
+    color:#9f8d80;
+    font-size:12px;
+    line-height:1.5;
+    min-height:36px;
+}
+
+.price{
+    color:var(--gold);
+    font-weight:bold;
+    margin-top:12px;
+}
+
+/* ================= GALLERY ================= */
+
+.gallery{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+}
+
+.gallery img{
+    width:100%;
+    height:280px;
+    object-fit:cover;
+    border-radius:15px;
+    transition:.4s;
+}
+
+.gallery img:hover{
+    transform:scale(1.04);
+}
+
+/* ================= HOURS ================= */
+
+.hours-section{
+    background:#1b0e08;
+}
+
+.hours-box{
+    max-width:750px;
+    margin:auto;
+    background:#26140d;
+    border-radius:20px;
+    border:1px solid rgba(216,164,109,.2);
+    padding:25px;
+}
+
+.hour-row{
+    display:flex;
+    justify-content:space-between;
+    padding:16px;
+    border-bottom:1px solid rgba(255,255,255,.07);
+}
+
+.hour-row:last-child{
+    border:none;
+}
+
+.hour-row span:last-child{
+    color:var(--gold);
+}
+
+/* ================= LOCATION ================= */
+
+.location-box{
+    max-width:850px;
+    margin:auto;
+    text-align:center;
+    padding:50px;
+    border-radius:20px;
+    background:#26140d;
+    border:1px solid rgba(216,164,109,.2);
+}
+
+.location-box h3{
+    color:var(--gold);
+    margin-bottom:15px;
+    font-size:25px;
+}
+
+.location-box p{
+    color:#b8a394;
+    line-height:1.8;
+}
+
+/* ================= THANK YOU ================= */
+
+.thank-you{
+    position:relative;
+    min-height:400px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    overflow:hidden;
+    background:
+    linear-gradient(rgba(15,7,3,.65),rgba(15,7,3,.85)),
+    url("https://images.unsplash.com/photo-1447933601403-0c6688de566e?auto=format&fit=crop&w=1800&q=85");
+    background-size:cover;
+    background-position:center;
+}
+
+.thank-you-content{
+    position:relative;
+    z-index:2;
+}
+
+.thank-you h2{
+    font-size:clamp(45px,7vw,90px);
+    color:var(--gold);
+    font-family:cursive;
+    margin-bottom:20px;
+    animation:pulse 3s infinite;
+}
+
+.thank-you h3{
+    font-size:clamp(25px,4vw,45px);
+    letter-spacing:6px;
+    margin-bottom:15px;
+}
+
+.thank-you p{
+    color:#ddd;
+    font-size:20px;
+    letter-spacing:4px;
+}
+
+@keyframes pulse{
+    0%,100%{
+        transform:scale(1);
+    }
+
+    50%{
+        transform:scale(1.05);
+    }
+}
+
+/* ================= CONTACT ================= */
+
+.contact{
+    text-align:center;
+}
+
+.contact p{
+    color:#a99687;
+    margin-bottom:25px;
+}
+
+/* ================= FOOTER ================= */
+
+footer{
+    background:#0b0503;
+    padding:35px 7%;
+    text-align:center;
+    border-top:1px solid rgba(216,164,109,.15);
+}
+
+footer h2{
+    color:var(--gold);
+    letter-spacing:5px;
+    margin-bottom:12px;
+}
+
+footer p{
+    color:#827269;
+    margin:7px;
+    font-size:13px;
+}
+
+/* ================= FLOATING BUTTON ================= */
+
+.float-location{
+    position:fixed;
+    right:22px;
+    bottom:22px;
+    z-index:100;
+    width:58px;
+    height:58px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:50%;
+    background:var(--gold);
+    color:#160a05;
+    text-decoration:none;
+    font-size:25px;
+    box-shadow:0 10px 30px rgba(0,0,0,.45);
+    animation:floatPulse 2s infinite;
+}
+
+@keyframes floatPulse{
+    0%,100%{
+        transform:scale(1);
+    }
+
+    50%{
+        transform:scale(1.1);
+    }
+}
+
+/* ================= ANIMATIONS ================= */
+
+.reveal{
+    opacity:0;
+    transform:translateY(40px);
+    transition:all .8s ease;
+}
+
+.reveal.show{
+    opacity:1;
+    transform:translateY(0);
+}
+
+@keyframes heroShow{
+    from{
+        opacity:0;
+        transform:translateY(40px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:850px){
+
+    .order-btn{
+        display:none;
+    }
+
+    .mobile-menu{
+        display:block;
+        background:none;
+        border:none;
+        padding:0;
+        font-size:28px;
+        cursor:pointer;
+        color:white;
+    }
+
+    .nav-links{
+        display:none;
+        position:absolute;
+        top:75px;
+        left:0;
+        width:100%;
+        flex-direction:column;
+        background:#160a05;
+        padding:20px 7%;
+        gap:20px;
+        border-bottom:1px solid rgba(216,164,109,.3);
+        animation:menuSlide .4s ease;
+    }
+
+    .nav-links.active{
+        display:flex;
+    }
+
+    .nav-links li{
+        text-align:center;
+    }
+
+    .nav-links a{
+        font-size:17px;
+    }
+
+    .info-strip{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .about-grid{
+        grid-template-columns:1fr;
+    }
+
+    .about-image img{
+        height:320px;
+    }
+
+    .gallery{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .gallery img{
+        height:190px;
+    }
+
+    section{
+        padding:70px 5%;
+    }
+
+    .cup{
+        font-size:35px !important;
+    }
+}
+
+@keyframes menuSlide{
+    from{
+        opacity:0;
+        transform:translateY(-20px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+@media(max-width:500px){
+
+    .menu-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .menu-card img{
+        height:120px;
+    }
+
+    .menu-card h3{
+        font-size:14px;
+    }
+
+    .info-box{
+        padding:18px 8px;
+    }
+
+    .info-box h3{
+        font-size:15px;
+    }
+
+    .hero h1{
+        letter-spacing:5px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- NAVIGATION -->
+
+<nav>
+
+    <div class="logo">
+        ☕ COFFEA
+        <small>COFFEE • CONVERSATIONS • GOOD VIBES</small>
+    </div>
+
+    <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#menu">Menu</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#hours">Hours</a></li>
+        <li><a href="#location">Location</a></li>
+    </ul>
+
+    <a href="#menu" class="order-btn">OUR MENU ☕</a>
+<button class="mobile-menu" id="mobileMenu" type="button" aria-label="Open navigation menu">☰</button>
+    
+</nav>
+
+
+<!-- HERO -->
+
+<section class="hero" id="home">
+
+    <!-- FALLING CUPS -->
+
+    <div class="falling">
+        <div class="cup">☕</div>
+        <div class="cup">🥤</div>
+        <div class="cup">☕</div>
+        <div class="cup">🥤</div>
+        <div class="cup">☕</div>
+        <div class="cup">🥤</div>
+
+        <div class="bean">🫘</div>
+        <div class="bean">🫘</div>
+        <div class="bean">🫘</div>
+        <div class="bean">🫘</div>
+    </div>
+
+    <div class="hero-content">
+
+        <div class="hero-tag">WELCOME TO</div>
+
+        <h1>COFF<span>EA</span></h1>
+
+        <p>
+            Great Coffee. Delicious Food. Beautiful Moments.<br>
+            Your perfect place to relax, connect and enjoy.
+        </p>
+
+        <a href="#menu" class="btn">EXPLORE MENU ☕</a>
+        <a href="#location" class="btn btn-outline">FIND US 📍</a>
+
+    </div>
+
+</section>
+
+
+<!-- INFO STRIP -->
+
+<div class="info-strip">
+
+    <div class="info-box">
+        <h3>⭐ 4.7</h3>
+        <p>Based on 62 Ratings</p>
+    </div>
+
+    <div class="info-box">
+        <h3>🕚 11 AM – 11 PM</h3>
+        <p>Open Every Day</p>
+    </div>
+
+    <div class="info-box">
+        <h3>💰 ₹200–₹400</h3>
+        <p>Average Price Range</p>
+    </div>
+
+    <div class="info-box">
+        <h3>📍 Manipal</h3>
+        <p>Udupi, Karnataka</p>
+    </div>
+
+</div>
+
+
+<!-- ABOUT -->
+
+<section id="about" class="reveal">
+
+    <div class="about-grid">
+
+        <div class="about-image">
+            <img src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=1000&q=80">
+        </div>
+
+        <div class="about-text">
+
+            <h2>More Than <span>Coffee</span></h2>
+
+            <p>
+                Coffea is a space where good conversations meet great coffee.
+                Whether you are studying, working, meeting friends or simply
+                relaxing, we create the perfect atmosphere for memorable moments.
+            </p>
+
+            <p>
+                Enjoy delicious drinks, tasty food and a comfortable environment.
+            </p>
+
+            <a href="#menu" class="btn">SEE OUR MENU</a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- MENU -->
+
+<section class="menu-section" id="menu">
+
+    <div class="section-title reveal">
+
+        <h2>OUR <span>MENU</span></h2>
+
+        <p>Made with love. Served with happiness.</p>
+
+    </div>
+
+
+    <!-- HOT COFFEE -->
+
+    <div class="menu-category reveal">
+
+        <h3 class="category-heading">☕ HOT COFFEES</h3>
+
+        <div class="menu-grid">
+
+            <div class="menu-card">
+                <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=500">
+                <div class="menu-card-content">
+                    <h3>Espresso</h3>
+                    <p>Strong and bold classic coffee.</p>
+                    <div class="price">₹120</div>
+                </div>
+            </div>
+
+            <div class="menu-card">
+                <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=500">
+                <div class="menu-card-content">
+                    <h3>Americano</h3>
+                    <p>Espresso with hot water.</p>
+                    <div class="price">₹140</div>
+                </div>
+            </div>
+
+            <div class="menu-card">
+                <img src="https://images.unsplash.com/photo-1572442388796-11668a67e53d?auto=format&fit=crop&w=500">
+                <div class="menu-card-content">
+                    <h3>Cappuccino</h3>
+                    <p>Espresso, milk and foam.</p>
+                    <div class="price">₹160</div>
+                </div>
+            </div>
+
+            <div class="menu-card">
+                <img src="https://images.unsplash.com/photo-1570968915860-54d5c301fa9f?auto=format&fit=crop&w=500">
+                <div class="menu-card-content">
+                    <h3>Café Latte</h3>
+                    <p>Smooth espresso with steamed milk.</p>
+                    <div class="price">₹170</div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- COLD DRINKS -->
+
+    <div class="menu-category reveal">
+
+        <h3 class="category-heading">🧊 COLD DRINKS</h3>
+
+        <div class="menu-grid">
+
+            <div class="menu-card">
+                <img src="https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?auto=format&fit=crop&w=500">
+                <div class="menu-card-content">
+                    <h3>Iced Americano</h3>
+                    <p>Cool and refreshing coffee.</p>
+                    <div class="price">₹150</div>
+                </div>
+            </div>
+
+            <div class="menu-card">
+                <img src="https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=500">
+                <div class="menu-card-content">
+                    <h3>Iced Latte</h3>
+                    <p>Cold coffee with creamy milk.</p>
+                    <div class="price">₹170</div>
+                </div>
+            </div>
+
+            <div class="menu-card">
+                <img src="https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=500">
+                <div class="menu-card-content">
+                    <h3>Cold Coffee</h3>
+                    <p>Classic chilled coffee.</p>
+                    <div class="price">₹160</div>
+                </div>
+            </div>
+
+            <div class="menu-card">
+                <img src="https://images.unsplash.com/photo-1558857563-c0c6f1e6b3f3?auto=format&fit=crop&w=500">
+                <div class="menu-card-content">
+                    <h3>Chocolate Frappe</h3>
+                    <p>Rich blended chocolate drink.</p>
+                    <div class="price">₹190</div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- SANDWICH -->
+
+    <div class="menu-category reveal">
+
+        <h3 class="category-heading">🥪 SANDWICHES</h3>
+
+        <div class="menu-grid">
+
+            <div class="menu-card">
+                <img src="https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=500">
+                <div class="menu-card-content">
+                    <h3>Veg Sandwich</h3>
+                    <p>Fresh vegetables and tasty sauce.</p>
+                    <div class="price">₹160</div>
+                </div>
+            </div>
+
+            <div class="menu-card">
+                <img src="https://images.unsplash.com/photo-1550507992-eb63ffee0847?auto=format&fit=crop&w=500">
+                <div class="menu-card-content">
+                    <h3>Cheese Sandwich</h3>
+                    <p>Loaded with delicious cheese.</p>
+                    <div class="price">₹180</div>
+                </div>
+            </div>
+
+            <div class="menu-card">
+                <img src="https://images.unsplash.com/photo-1550507992-eb63ffee0847?auto=format&fit=crop&w=500">
+                <div class="menu-card-content">
+                    <h3>Grilled Sandwich</h3>
+                    <p>Perfectly grilled and crispy.</p>
+                    <div class="price">₹190</div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- BURGERS -->
+
+    <div class="menu-category reveal">
+
+        <h3 class="category-heading">🍔 BURGERS</h3>
+
+        <div class="menu-grid">
+
+            <div class="menu-card">
+                <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=500">
+                <div class="menu-card-content">
+                    <h3>Veg Burger</h3>
+                    <p>Crispy veg patty with fresh vegetables.</p>
+                    <div class="price">₹180</div>
+                </div>
+            </div>
+
+            <div class="menu-card">
+                <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=500">
+                <div class="menu-card-content">
+                    <h3>Cheese Burger</h3>
+                    <p>Loaded with creamy melted cheese.</p>
+                    <div class="price">₹220</div>
+                </div>
+            </div>
+
+            <div class="menu-card">
+                <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=500">
+                <div class="menu-card-content">
+                    <h3>Paneer Burger</h3>
+                    <p>Spicy paneer patty and sauces.</p>
+                    <div class="price">₹220</div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- PIZZA -->
+
+    <div class="menu-category reveal">
+
+        <h3 class="category-heading">🍕 PIZZAS</h3>
+
+        <div class="menu-grid">
+
+            <div class="menu-card">
+                <img src="https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=500">
+                <div class="menu-card-content">
+                    <h3>Margherita Pizza</h3>
+                    <p>Classic cheese and tomato pizza.</p>
+                    <div class="price">₹250</div>
+                </div>
+            </div>
+
+            <div class="menu-card">
+                <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=500">
+                <div class="menu-card-content">
+                    <h3>Veggie Pizza</h3>
+                    <p>Loaded with fresh vegetables.</p>
+                    <div class="price">₹280</div>
+                </div>
+            </div>
+
+            <div class="menu-card">
+                <img src="https://images.unsplash.com/photo-1579751626657-72bc17010498?auto=format&fit=crop&w=500">
+                <div class="menu-card-content">
+                    <h3>Paneer Tikka Pizza</h3>
+                    <p>Spicy paneer with Indian flavours.</p>
+                    <div class="price">₹320</div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- PASTA -->
+
+    <div class="menu-category reveal">
+
+        <h3 class="category-heading">🍝 PASTAS</h3>
+
+        <div class="menu-grid">
+
+            <div class="menu-card">
+                <img src="https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?auto=format&fit=crop&w=500">
+                <div class="menu-card-content">
+                    <h3>Red Sauce Pasta</h3>
+                    <p>Classic tomato sauce pasta.</p>
+                    <div class="price">₹220</div>
+                </div>
+            </div>
+
+            <div class="menu-card">
+                <img src="https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=500">
+                <div class="menu-card-content">
+                    <h3>White Sauce Pasta</h3>
+                    <p>Creamy and rich white sauce.</p>
+                    <div class="price">₹230</div>
+                </div>
+            </div>
+
+            <div class="menu-card">
+                <img src="https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=500">
+                <div class="menu-card-content">
+                    <h3>Alfredo Pasta</h3>
+                    <p>Rich creamy Italian-style pasta.</p>
+                    <div class="price">₹250</div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- SNACKS -->
+
+    <div class="menu-category reveal">
+
+        <h3 class="category-heading">🍟 SNACKS & BITES</h3>
+
+        <div class="menu-grid">
+
+            <div class="menu-card">
+                <img src="https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=500">
+                <div class="menu-card-content">
+                    <h3>French Fries</h3>
+                    <p>Crispy golden fries.</p>
+                    <div class="price">₹130</div>
+                </div>
+            </div>
+
+            <div class="menu-card">
+                <img src="https://images.unsplash.com/photo-1513456852971-30c0b8199d4d?auto=format&fit=crop&w=500">
+                <div class="menu-card-content">
+                    <h3>Cheese Nachos</h3>
+                    <p>Crunchy nachos with cheese.</p>
+                    <div class="price">₹200</div>
+                </div>
+            </div>
+
+            <div class="menu-card">
+                <img src="https://images.unsplash.com/photo-1639024471283-03518883512d?auto=format&fit=crop&w=500">
+                <div class="menu-card-content">
+                    <h3>Onion Rings</h3>
+                    <p>Crispy golden onion rings.</p>
+                    <div class="price">₹150</div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- DESSERTS -->
+
+    <div class="menu-category reveal">
+
+        <h3 class="category-heading">🍰 DESSERTS</h3>
+
+        <div class="menu-grid">
+
+            <div class="menu-card">
+                <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=500">
+                <div class="menu-card-content">
+                    <h3>Chocolate Cake</h3>
+                    <p>Rich and delicious chocolate cake.</p>
+                    <div class="price">₹180</div>
+                </div>
+            </div>
+
+            <div class="menu-card">
+                <img src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?auto=format&fit=crop&w=500">
+                <div class="menu-card-content">
+                    <h3>Cheesecake</h3>
+                    <p>Soft creamy classic cheesecake.</p>
+                    <div class="price">₹220</div>
+                </div>
+            </div>
+
+            <div class="menu-card">
+                <img src="https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?auto=format&fit=crop&w=500">
+                <div class="menu-card-content">
+                    <h3>Brownie with Ice Cream</h3>
+                    <p>Warm brownie with cold ice cream.</p>
+                    <div class="price">₹200</div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- GALLERY -->
+
+<section id="gallery">
+
+    <div class="section-title reveal">
+        <h2>COFFEA <span>MOMENTS</span></h2>
+        <p>A glimpse of the Coffea experience.</p>
+    </div>
+
+    <div class="gallery reveal">
+
+        <img src="https://images.unsplash.com/photo-1445116572660-236099ec97a0?auto=format&fit=crop&w=700">
+
+        <img src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=700">
+
+        <img src="https://images.unsplash.com/photo-1521017432531-fbd92d768814?auto=format&fit=crop&w=700">
+
+        <img src="https://images.unsplash.com/photo-1498804103079-a6351b050096?auto=format&fit=crop&w=700">
+
+    </div>
+
+</section>
+
+
+<!-- HOURS -->
+
+<section class="hours-section" id="hours">
+
+    <div class="section-title reveal">
+
+        <h2>OPENING <span>HOURS</span></h2>
+
+        <p>We are ready to welcome you every day.</p>
+
+    </div>
+
+    <div class="hours-box reveal">
+
+        <div class="hour-row"><span>Monday</span><span>11 AM – 11 PM</span></div>
+        <div class="hour-row"><span>Tuesday</span><span>11 AM – 11 PM</span></div>
+        <div class="hour-row"><span>Wednesday</span><span>11 AM – 11 PM</span></div>
+        <div class="hour-row"><span>Thursday</span><span>11 AM – 11 PM</span></div>
+        <div class="hour-row"><span>Friday</span><span>11 AM – 11 PM</span></div>
+        <div class="hour-row"><span>Saturday</span><span>11 AM – 11 PM</span></div>
+        <div class="hour-row"><span>Sunday</span><span>11 AM – 11 PM</span></div>
+
+    </div>
+
+</section>
+
+
+<!-- LOCATION -->
+
+<section id="location">
+
+    <div class="section-title reveal">
+
+        <h2>FIND <span>US</span></h2>
+
+        <p>Visit Coffea in Manipal.</p>
+
+    </div>
+
+    <div class="location-box reveal">
+
+        <h3>📍 COFFEA, MANIPAL</h3>
+
+        <p>
+            SHOP NO 4, GROUND FLOOR, VK ODYSSEY,<br>
+            Dr VS Acharya Rd, Manipal,<br>
+            Vidyaratna Nagar, Udupi,<br>
+            Karnataka 576104
+        </p>
+
+        <br>
+
+        <a
+        href="https://www.google.com/maps/search/?api=1&query=9Q4M%2B9G%20Vidyaratna%20Nagar%2C%20Manipal%2C%20Udupi"
+        target="_blank"
+        class="btn">
+
+        OPEN GOOGLE MAPS 📍
+
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- CONTACT -->
+
+<section class="contact reveal">
+
+    <div class="section-title">
+        <h2>COME SAY <span>HELLO</span></h2>
+    </div>
+
+    <p>
+        Great coffee, delicious food and beautiful moments are waiting for you.
+    </p>
+
+    <a href="#location" class="btn">GET DIRECTIONS ☕</a>
+
+</section>
+
+<!-- CUSTOMER RATINGS -->
+
+<section class="ratings-section" id="reviews">
+
+    <div class="section-title reveal">
+
+        <h2>WHAT OUR <span>GUESTS SAY</span></h2>
+
+        <p>Your love and support mean everything to us.</p>
+
+    </div>
+
+
+    <div class="rating-summary reveal">
+
+        <div class="big-rating">
+
+            <div class="number">4.7</div>
+
+            <div class="stars">
+                ★★★★★
+            </div>
+
+            <p>Based on 62 customer ratings</p>
+
+        </div>
+
+
+        <div>
+
+            <h2 style="font-size:32px;margin-bottom:15px;">
+                Loved by our <span style="color:#d8a46d;">Customers ☕</span>
+            </h2>
+
+            <p style="color:#b8a394;line-height:1.8;">
+                We are proud to create a warm and welcoming space where
+                great coffee, delicious food and beautiful conversations
+                come together.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- REVIEW CARDS -->
+
+    <div class="review-grid reveal">
+
+        <div class="review-card">
+
+            <div class="review-stars">★★★★★</div>
+
+            <p>
+                A beautiful place to relax and enjoy coffee.
+                The atmosphere is amazing and the food is delicious!
+            </p>
+
+            <div class="reviewer">— Happy Customer</div>
+
+        </div>
+
+
+        <div class="review-card">
+
+            <div class="review-stars">★★★★★</div>
+
+            <p>
+                Great coffee, friendly atmosphere and a perfect place
+                to spend time with friends.
+            </p>
+
+            <div class="reviewer">— Coffea Guest</div>
+
+        </div>
+
+
+        <div class="review-card">
+
+            <div class="review-stars">★★★★★</div>
+
+            <p>
+                One of my favourite places in Manipal.
+                Definitely coming back again!
+            </p>
+
+            <div class="reviewer">— Coffee Lover</div>
+
+        </div>
+
+    </div>
+
+    <p class="review-note">
+        ⭐ Rated 4.7 by customers
+    </p>
+
+</section>
+<!-- THANK YOU -->
+
+<section class="thank-you">
+
+    <div class="falling">
+
+        <div class="cup">☕</div>
+        <div class="cup">🫘</div>
+        <div class="cup">☕</div>
+        <div class="cup">🫘</div>
+
+    </div>
+
+    <div class="thank-you-content">
+
+        <h2>Thank You</h2>
+
+        <h3>FOR VISITING OUR CAFE</h3>
+
+        <p>COME AGAIN ♥</p>
+
+    </div>
+
+</section>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+    <h2>☕ COFFEA</h2>
+
+    <p>COFFEE • CONVERSATIONS • GOOD VIBES</p>
+
+    <p>
+        Shop No 4, Ground Floor, VK Odyssey,
+        Dr VS Acharya Rd, Manipal, Udupi
+    </p>
+
+    <p>© 2026 COFFEA. All Rights Reserved.</p>
+
+</footer>
+
+
+<!-- FLOATING LOCATION BUTTON -->
+
+<a
+href="https://www.google.com/maps/search/?api=1&query=9Q4M%2B9G%20Vidyaratna%20Nagar%2C%20Manipal%2C%20Udupi"
+target="_blank"
+class="float-location">
+
+📍
+
+</a>
+
+
+<!-- JAVASCRIPT -->
+
+<script>
+
+/* SCROLL REVEAL ANIMATION */
+
+const revealElements = document.querySelectorAll(".reveal");
+
+function revealOnScroll(){
+
+    revealElements.forEach(element => {
+
+        const position = element.getBoundingClientRect().top;
+
+        const screenPosition = window.innerHeight - 100;
+
+        if(position < screenPosition){
+
+            element.classList.add("show");
+
+        }
+
+    });
+
+}
+
+window.addEventListener("scroll", revealOnScroll);
+
+revealOnScroll();
+
+
+/* MOBILE MENU */
+
+const mobileMenu = document.getElementById("mobileMenu");
+const navLinks = document.querySelector(".nav-links");
+
+if (mobileMenu && navLinks) {
+    mobileMenu.addEventListener("click", () => {
+        navLinks.classList.toggle("active");
+
+        if(navLinks.classList.contains("active")){
+            mobileMenu.innerHTML = "✕";
+        } else {
+            mobileMenu.innerHTML = "☰";
+        }
+    });
+
+    /* CLOSE MENU AFTER CLICKING A LINK */
+    document.querySelectorAll(".nav-links a").forEach(link => {
+        link.addEventListener("click", () => {
+            navLinks.classList.remove("active");
+            mobileMenu.innerHTML = "☰";
+        });
+    });
+}
+
+</script></body>
+</html>
